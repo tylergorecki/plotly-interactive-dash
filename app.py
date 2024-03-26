@@ -3,7 +3,7 @@
 #############################################################
 
 # import necessary packages
-from dash import Dash, html, dcc, Input, Output, callback
+from dash import Dash, dash_table, html, dcc, Input, Output, callback
 import pandas as pd
 import plotly.express as px
 
@@ -117,5 +117,12 @@ app.layout = html.Div([
     ]), 
 
     # data table from filters above
-    html.Div()
+    html.Div(
+        dash_table.DataTable(
+            columns=[{"name": i, "id": i} for i in sorted(df.columns)],
+            sort_action="native",
+            page_size=10,
+            style_table={"overflowX": "auto"},
+        )
+    )
 ])
